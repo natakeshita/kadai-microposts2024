@@ -17,7 +17,15 @@
                         </div>
                         <div>
                             {{-- 投稿内容 --}}
-                            <p class="mb-0">{!! nl2br(e($micropost->content)) !!}</p>
+  {{--                           <p class="mb-0">{!! nl2br(e($micropost->content)) !!}</p>　--}}
+                            <form method="POST" action="{{ route('microposts.update', $micropost->id) }}">
+                                <textarea rows="2" name="content" class="input input-bordered w-full">{!! nl2br(e($micropost->content)) !!}</textarea>                            
+                                @csrf
+                                @method('PUT')
+                                <button type="submit" class="btn btn-secondary btn-sm normal-case" 
+                                    onclick="return confirm('Update id = {{ $micropost->id }} ?')">Update</button>
+                            </form>
+                                
                         </div>
                         
                         <div>
@@ -34,6 +42,8 @@
                                     <button type="submit" class="btn btn-error btn-sm normal-case" 
                                         onclick="return confirm('Delete id = {{ $micropost->id }} ?')">Delete</button>
                                 </form>
+
+
                             @endif
                         </div>
                     </div>

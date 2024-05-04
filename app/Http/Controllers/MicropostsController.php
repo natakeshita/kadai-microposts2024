@@ -41,7 +41,24 @@ class MicropostsController extends Controller
         
         // 前のURLへリダイレクトさせる
         return back();
+    } 
+    
+    
+    public function update(Request $request,$id)
+    {
+
+        $request->validate([
+            'content' => 'required|max:255',
+        ]);
+
+        $micropost = \App\Models\Micropost::findOrFail($id);
+
+        $micropost->content = $request->content;
+        $micropost->save();
+        // 前のURLへリダイレクトさせる
+        return redirect('/');
     }   
+    
     public function destroy($id)
     {
         // idの値で投稿を検索して取得
